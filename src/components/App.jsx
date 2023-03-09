@@ -33,9 +33,13 @@ export const App = () => {
       <h1 className={css.header}>Phonebook</h1>
       <ContactForm />
       <h2 className={css.header}>Contacts</h2>
-      <Filter />
       {isLoading && !error && <p>Request in progress...</p>}
-      <ContactList />
+      {!isLoading && !error && (
+        <>
+          <Filter />
+          <ContactList />
+        </>
+      )}
     </div>
   );
 };

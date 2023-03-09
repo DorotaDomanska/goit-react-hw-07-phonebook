@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
-import { nanoid } from 'nanoid';
 import css from './Phonebook.module.css';
 
 export const ContactForm = () => {
@@ -13,17 +12,14 @@ export const ContactForm = () => {
     const form = evt.target;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-    const id = nanoid();
 
-    if (contacts.length > 0) {
-      const sameName = contacts.some(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      );
-      sameName
-        ? alert(`${name} is already in contacts.`)
-        : dispatch(addContact(id, name, number));
-    }
-    dispatch(addContact(id, name, number));
+    const sameName = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    sameName
+      ? alert(`${name} is already in contacts.`)
+      : dispatch(addContact({ name: name, phone: number }));
+
     form.reset();
   };
 
